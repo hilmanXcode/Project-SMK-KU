@@ -1,11 +1,12 @@
 import Siswa from "../models/SiswaModels.js";
 import path from "path";
 import fs from "fs";
+import cResponse from "../custom/response.js";
 
 export const getSiswa = async(req, res) => {
     try {
         const response = await Siswa.findAll();
-        res.status(200).json(response);   
+        cResponse(200, response, "Mengambil Semua Data Siswa", res);
     } catch (error) {
         console.log(error.message);
     }
@@ -27,7 +28,7 @@ export const getSiswaByID = async(req, res) => {
 
 export const addSiswa = (req, res) => {
     if(!req.files) return res.status(400).json({msg: "No file selected."});
-    if(!req.body.nama || !req.body.umur || !req.body.kelas || !req.body.jk) return res.status(400).json({msg: "You must be fill the form."});
+    if(!req.body.nama || !req.body.umur || !req.body.kelas || !req.body.kelamin) return res.status(400).json({msg: "You must be fill the form."});
     const nama = req.body.nama;
     const umur = req.body.umur;
     const kelas = req.body.kelas;
